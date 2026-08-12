@@ -5,7 +5,8 @@
 # mount point   fstype  device                                          device2             flags
 # Logical partitions
 /system_image   emmc    /dev/block/mapper/system					    flags=slotselect
-/mi_ext		auto    mi_ext							            flags=display="Mi-EXT";logical
+# mi_ext removed: not in BOARD_QTI_DYNAMIC_PARTITIONS_PARTITION_LIST, no mapper node is ever
+# created for it, so it can't be mounted or backed up in recovery. See recovery.fstab.
 
 # Userdata/Metadata partitions
 /metadata       ext4    /dev/block/by-name/metadata                                         flags=display="Metadata"
