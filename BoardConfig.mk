@@ -182,7 +182,7 @@ TW_NO_HAPTICS := true
 TW_EXCLUDE_TWRPAPP := true
 
 # TWRP Version
-TW_DEVICE_VERSION := White Wolf v6
+TW_DEVICE_VERSION := POCO F4 GT
 
 # Load kernel modules for touch & vibrator
 BOARD_VENDOR_RAMDISK_RECOVERY_KERNEL_MODULES_LOAD := $(strip $(shell cat $(DEVICE_PATH)/modules.load.recovery))
