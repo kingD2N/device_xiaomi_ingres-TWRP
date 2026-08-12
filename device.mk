@@ -21,40 +21,22 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/virtual_ab_ota.mk)
 # A/B related packages
 ENABLE_AB := true
 ENABLE_VIRTUAL_AB := true
-# CATATAN: init.recovery.qcom.rc ("start boot-hal-1-2") dan blob
-# android.hardware.boot@1.0-impl-1.2-qti.so mengonfirmasi vendor blob
-# ingres yang sebenarnya menyediakan Boot HAL 1.2 (bukan 1.1).
+
 PRODUCT_PACKAGES += update_engine \
     update_engine_client \
     update_verifier \
-    android.hardware.boot@1.2-impl-qti \
-    android.hardware.boot@1.2-impl-qti.recovery \
-    android.hardware.boot@1.2-service
+    android.hardware.boot@1.1-impl-qti \
+    android.hardware.boot@1.1-impl-qti.recovery \
+    android.hardware.boot@1.1-service
 
 PRODUCT_PACKAGES += \
-    update_engine_sideload
-
-# FIX: bootctrl.taro passthrough hilang di tree asal - wajib untuk A/B slot switching.
-PRODUCT_PACKAGES += \
-    bootctrl.taro \
-    bootctrl.taro.recovery
+  update_engine_sideload
 
 AB_OTA_POSTINSTALL_CONFIG += \
     RUN_POSTINSTALL_vendor=true \
     POSTINSTALL_PATH_vendor=bin/checkpoint_gc \
     FILESYSTEM_TYPE_vendor=ext4 \
     POSTINSTALL_OPTIONAL_vendor=true
-
-# FIX: dexopt-on-OTA untuk partisi system (biar first-boot pasca-OTA tidak lama).
-PRODUCT_PACKAGES += \
-    otapreopt_script \
-    cppreopts.sh
-
-AB_OTA_POSTINSTALL_CONFIG += \
-    RUN_POSTINSTALL_system=true \
-    POSTINSTALL_PATH_system=bin/otapreopt_script \
-    FILESYSTEM_TYPE_system=ext4 \
-    POSTINSTALL_OPTIONAL_system=true
 
 # Board
 BOARD_SHIPPING_API_LEVEL := 31
@@ -79,9 +61,9 @@ PRODUCT_USE_DYNAMIC_PARTITIONS := true
 
 # Fastbootd
 PRODUCT_PACKAGES += \
-    android.hardware.fastboot@1.0-impl-mock \
-    android.hardware.fastboot@1.0-impl-mock.recovery \
-    fastbootd
+	android.hardware.fastboot@1.0-impl-mock \
+	android.hardware.fastboot@1.0-impl-mock.recovery \
+	fastbootd
 
 # f2fs utilities
 PRODUCT_PACKAGES += \
