@@ -5,7 +5,7 @@
 # mount point   fstype  device                                          device2             flags
 # Logical partitions
 /system_image   emmc    /dev/block/mapper/system					    flags=slotselect
-/mi_ext		auto    mi_ext							            flags=display="Mi-EXT";logical
+/mi_ext		auto    /dev/block/mapper/mi_ext							            flags=display="Mi-EXT";logical
 
 # Userdata/Metadata partitions
 /metadata       ext4    /dev/block/by-name/metadata                                         flags=display="Metadata"
