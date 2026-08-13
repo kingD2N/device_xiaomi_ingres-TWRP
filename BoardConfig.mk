@@ -172,13 +172,8 @@ TW_DEFAULT_BRIGHTNESS := 1024
 TW_NO_SCREEN_BLANK := true
 
 # TWRP Haptics
-# Disabled: "vibratorfeature" is a custom Xiaomi IVibratorExt instance, not the
-# standard android.hardware.vibrator.IVibrator/default TWRP's AIDL haptics client
-# expects, and the vendor stack pulls in an unresolved dependency. See also the
-# disabled blocks in init.recovery.qcom.rc and vibratorfeature.service.rc.
-#TW_SUPPORT_INPUT_AIDL_HAPTICS := true
-#TW_SUPPORT_INPUT_AIDL_HAPTICS_FQNAME := "IVibrator/vibratorfeature"
-TW_NO_HAPTICS := true
+TW_SUPPORT_INPUT_AIDL_HAPTICS := true
+TW_SUPPORT_INPUT_AIDL_HAPTICS_FQNAME := "IVibrator/vibratorfeature"
 TW_EXCLUDE_TWRPAPP := true
 
 # TWRP Version
