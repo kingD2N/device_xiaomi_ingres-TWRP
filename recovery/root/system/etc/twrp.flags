@@ -9,7 +9,9 @@
 # created for it, so it can't be mounted or backed up in recovery. See recovery.fstab.
 
 # Userdata/Metadata partitions
-/metadata       ext4    /dev/block/by-name/metadata                                         flags=display="Metadata"
+/metadata       ext4    /dev/block/by-name/metadata                                         flags=display="Metadata";backup=1;wrappedkey
+/data           f2fs    /dev/block/bootdevice/by-name/userdata                              flags=fileencryption=aes-256-xts:aes-256-cts:v2+inlinecrypt_optimized+wrappedkey_v0,keydirectory=/metadata/vold/metadata_encryption,metadata_encryption=aes-256-xts:wrappedkey_v0
+/cache          ext4    /dev/block/bootdevice/by-name/rescue                                flags=backup=1;wipeingui;wipeduringfactoryreset
 /storage         ext4    /data/media/0							    flags=display="Internal Storage";backup;removable;usermrf;fsflags="bind,utf8"
 /cust           ext4    /dev/block/bootdevice/by-name/cust                                  flags=display="Cust";backup;flashimg
 
