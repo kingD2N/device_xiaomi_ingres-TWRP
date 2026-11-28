@@ -174,6 +174,27 @@ TW_NO_SCREEN_BLANK := true
 # TWRP Haptics
 TW_SUPPORT_INPUT_AIDL_HAPTICS := true
 TW_SUPPORT_INPUT_AIDL_HAPTICS_FQNAME := "IVibrator/vibratorfeature"
+# Catatan: di source TWRP 12.1 dua baris di atas hanya menautkan library vibrator AIDL.
+# Getar biasa tetap lewat sysfs /sys/class/leds/vibrator (driver aw8697_haptic), dan itu
+# yang dipakai TWRP ini (sudah teruji jalan).
+
+# Menu Efek Haptic (Click/Double click/Tick/Thud/Pop/Heavy click) -- porting dari OFOX ingres.
+# Kode menu dipasang patches/twrp_haptic_effects.py. Efek memakai HAL qcom open source
+# (IVibrator/default) yang DIBUILD DARI SOURCE vendor/qcom/opensource/vibrator (ada di
+# manifest minimal TWRP twrp-12.1). Script menambahkan nama motor ingres
+# "awinic_haptic"/"aw8697_haptic" ke HAL itu lalu membuat penanda .ingres_awinic.
+# Tanpa penanda (patch gagal), HAL qcom tidak dibuild: menu efek tidak muncul, getar biasa tetap jalan.
+ifneq ($(wildcard vendor/qcom/opensource/vibrator/.ingres_awinic),)
+TARGET_RECOVERY_DEVICE_MODULES += \
+    vendor.qti.hardware.vibrator.service \
+    vendor.qti.hardware.vibrator.impl \
+    libqtivibratoreffect
+RECOVERY_BINARY_SOURCE_FILES += \
+    $(TARGET_OUT_VENDOR_EXECUTABLES)/hw/vendor.qti.hardware.vibrator.service
+RECOVERY_LIBRARY_SOURCE_FILES += \
+    $(TARGET_OUT_VENDOR_SHARED_LIBRARIES)/vendor.qti.hardware.vibrator.impl.so \
+    $(TARGET_OUT_VENDOR_SHARED_LIBRARIES)/libqtivibratoreffect.so
+endif
 TW_EXCLUDE_TWRPAPP := true
 
 # TWRP Version
